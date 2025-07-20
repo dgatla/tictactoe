@@ -51,3 +51,12 @@ span {
   font-size: 3rem;
   margin: 0 2rem;
 }
+
+.mode {
+  transition: transform 0.3s ease;
+}
+
+.mode:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}

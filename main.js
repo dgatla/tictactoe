@@ -66,9 +66,14 @@ const GameController = (board => {
 })(GameBoard);
 
 
-
-const header = document.querySelector("header")
-
-header.addEventListener(("animationend"), (e) => {
-  header.style.position = "relative"
+const modes = document.querySelectorAll(".mode");
+const gameMode = document.querySelector(".game-mode")
+const game = document.querySelector(".game")
+modes.forEach((mode) => {
+  mode.addEventListener("click", (e) => {
+    let selection = e.target.dataset["mode"];
+    gameMode.classList.toggle("d-none");
+    game.classList.toggle("d-none");
+  })
 })
+

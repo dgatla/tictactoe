@@ -15,11 +15,11 @@
 
 <body>
 
-    <header>
+    <div class="header">
         <img src="./images/title.svg" alt="title">
-    </header>
+    </div>
 
-    <div class="game-mode">
+    <div class="game-mode d-none">
         <div class="mode" data-mode="twoplayer">
             <img src="./images/man.svg" alt="Two players" class="mode-image">
             <span>VS</span>
@@ -33,31 +33,25 @@
     </div>
 
 
-    <div class="game d-none">
+    <div class="game">
         <div class="score-board">
             <div class="player player1">
                 <span>Player 1 (X)</span>
             </div>
             <div class="player player2">
-                
+                <span>Player 2(O)</span>
             </div>
         </div>
         <div class="board">
-            <div class="row">
-                <div class="cell" data-row="0" data-col="0"></div>
-                <div class="cell" data-row="0" data-col="1"></div>
-                <div class="cell" data-row="0" data-col="2"></div>
-            </div>
-            <div class="row">
-                <div class="cell" data-row="1" data-col="0"></div>
-                <div class="cell" data-row="1" data-col="1"></div>
-                <div class="cell" data-row="1" data-col="2"></div>
-            </div>
-            <div class="row">
-                <div class="cell" data-row="2" data-col="0"></div>
-                <div class="cell" data-row="2" data-col="1"></div>
-                <div class="cell" data-row="2" data-col="2"></div>
-            </div>
+            <div class="cell" data-row="0" data-col="0"></div>
+            <div class="cell" data-row="0" data-col="1"></div>
+            <div class="cell" data-row="0" data-col="2"></div>
+            <div class="cell" data-row="1" data-col="0"></div>
+            <div class="cell" data-row="1" data-col="1"></div>
+            <div class="cell" data-row="1" data-col="2"></div>
+            <div class="cell" data-row="2" data-col="0"></div>
+            <div class="cell" data-row="2" data-col="1"></div>
+            <div class="cell" data-row="2" data-col="2"></div>
         </div>
         <div class="buttons">
             <button class="button-control" data-attribute="reset-board">Reset</button>

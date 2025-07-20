@@ -1,4 +1,3 @@
-// GameBoard module (logic only)
 const GameBoard = (() => {
   let board = Array.from({ length: 3 }, () => Array(3).fill(""));
 
@@ -66,62 +65,10 @@ const GameController = (board => {
   return { start, playTurn, getCurrentPlayer };
 })(GameBoard);
 
-const TicTacToeUI = (() => {
-  const promptInt = message => {
-    let num = parseInt(prompt(message), 10);
-    while (isNaN(num) || num < 0 || num > 2) {
-      num = parseInt(prompt("Invalid input. " + message), 10);
-    }
-    return num;
-  };
 
-  const promptSymbol = () => {
-    let symbol = prompt("Enter your symbol (X or O):").toUpperCase();
-    while (symbol !== "X" && symbol !== "O") {
-      symbol = prompt("Invalid symbol. Choose X or O:").toUpperCase();
-    }
-    return symbol;
-  };
 
-  const startGame = () => {
-    const nameA = prompt("Enter Player A's name:");
-    const symbolA = promptSymbol();
-    const nameB = prompt("Enter Player B's name:");
-    const symbolB = symbolA === "X" ? "O" : "X";
+const header = document.querySelector("header")
 
-    const playerA = createPlayer(nameA, symbolA);
-    const playerB = createPlayer(nameB, symbolB);
-
-    GameController.start(playerA, playerB);
-    GameBoard.print();
-
-    while (true) {
-      const player = GameController.getCurrentPlayer();
-      alert(`${player.name}'s (${player.symbol}) turn`);
-      const x = promptInt("Enter row (0-2):");
-      const y = promptInt("Enter column (0-2):");
-
-      const result = GameController.playTurn(x, y);
-      GameBoard.print();
-
-      if (!result.success) {
-        alert(result.message);
-        continue;
-      }
-
-      if (result.win) {
-        alert(`${result.player.name} wins!`);
-        break;
-      }
-
-      if (result.draw) {
-        alert("It's a draw!");
-        break;
-      }
-    }
-  };
-
-  return { startGame };
-})();
-
-TicTacToeUI.startGame();
+header.addEventListener(("animationend"), (e) => {
+  header.style.position = "relative"
+})

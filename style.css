@@ -1,0 +1,21 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+  background: url(images/background.svg),
+    linear-gradient(90deg, #f9cbd3 0%, #c6a8fd 100%);
+  background-size: cover;
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  font-family: sans-serif;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px; 
+}

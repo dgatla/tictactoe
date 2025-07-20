@@ -77,9 +77,10 @@ const GameControllerUI = () => {
   const gameMode = document.querySelector(".game-mode")
   const game = document.querySelector(".game")
   const buttons = document.querySelector(".buttons")
-  const player1 = createPlayer("Player 1", "X")
-  const player2 = createPlayer("Player 2", "O")
+  const player1 = createPlayer("playerx", "X")
+  const player2 = createPlayer("playery", "O")
   const cells = document.querySelectorAll(".cell")
+  const scores = document.querySelectorAll(".score")
 
   buttons.addEventListener('click', (e) => {
     let button = e.target.closest(".button-control")
@@ -103,11 +104,22 @@ const GameControllerUI = () => {
   }
 
   const handlePlayerInput = (e) => {
-    e.target.textContent = GameController.getCurrentPlayer().symbol;
+    if (e.target.textContent != "") {
+      return;
+    }
     let x = parseInt(e.target.dataset["row"]), y = parseInt(e.target.dataset["col"])
+    const symbol = GameController.getCurrentPlayer().symbol;
     let res = GameController.playTurn(x, y)
+    e.target.textContent = symbol;
+    
     if (res.win) {
-      
+      GameBoard.print()
+      const playerScoreClass = "." + res.player.name + "-score";
+      const score = document.querySelector(playerScoreClass)
+      score.textContent = res.player.score
+      updateScoreAndAnnounceResult(res);
+    } else if (res.draw) {
+      resetGame()
     }
   }
 
@@ -120,14 +132,25 @@ const GameControllerUI = () => {
       case "quit":
         gameMode.classList.toggle("d-none")
         game.classList.toggle("d-none")
+        resetGame()
+        clearScore()
         break
       case "reset":
-        //ToDo: Reset the entire board
-        GameController.start(player1, player2, true)
+        resetGame()
+        break
+      case "restart":
+        GameController.start(player1, player2)
+        clearScore()
         clearCells()
+        break
       default:
         console.log("Default case")
     }
+  }
+
+  const resetGame = () => {
+    GameController.start(player1, player2, true)
+    clearCells();
   }
 
   const clearCells = () => {
@@ -136,7 +159,23 @@ const GameControllerUI = () => {
     })
   }
 
-  
+  const clearScore = () => {
+    scores.forEach((score) => {
+      score.textContent = "0";
+    })
+  }
+
+  const updateScoreAndAnnounceResult = (res) => {
+    const playerScoreResult = "." + res.player.name + "-result"
+    const result = document.querySelector(playerScoreResult)
+    result.textContent = "(Win)"
+    setTimeout(() => {
+      result.textContent = ""
+      resetGame()
+    }, 1000);
+  }
+
+
   return { start }
 
 }

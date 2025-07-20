@@ -1,7 +1,7 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
@@ -23,4 +23,31 @@ header {
 header img {
   max-width: 90vw;
   height: auto;
+}
+
+.game-mode {
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mode {
+  display: flex;
+  align-items: center;
+  margin: 1rem;
+  border: 1px solid rgb(71, 67, 67);
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.mode-image {
+  height: 150px;
+}
+
+span {
+  font-family: "Bangers", system-ui;
+  font-size: 3rem;
+  margin: 0 2rem;
 }

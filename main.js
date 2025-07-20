@@ -35,14 +35,18 @@ const GameBoard = (() => {
   return { get, set, isFull, hasWinner, print, reset };
 })();
 
-const createPlayer = (name, symbol) => ({ name, symbol });
+const createPlayer = (name, symbol) => ({ name, symbol, "score": 0 });
 
 const GameController = (board => {
   let players = [];
   let currentPlayerIndex = 0;
 
-  const start = (player1, player2) => {
+  const start = (player1, player2, isReset = false) => {
     board.reset();
+    if (!isReset) {
+      player1.score = 0;
+      player2.score = 0;
+    }
     players = [player1, player2];
     currentPlayerIndex = 0;
   };
@@ -55,6 +59,7 @@ const GameController = (board => {
     if (!moveSuccess) return { success: false, message: "Invalid move." };
 
     const win = board.hasWinner(x, y, player.symbol);
+    if (win) player.score += 1
     const draw = !win && board.isFull();
 
     const result = { success: true, win, draw, player };
@@ -66,14 +71,71 @@ const GameController = (board => {
 })(GameBoard);
 
 
-const modes = document.querySelectorAll(".mode");
-const gameMode = document.querySelector(".game-mode")
-const game = document.querySelector(".game")
-modes.forEach((mode) => {
-  mode.addEventListener("click", (e) => {
-    let selection = e.target.dataset["mode"];
-    gameMode.classList.toggle("d-none");
-    game.classList.toggle("d-none");
+const GameControllerUI = () => {
+
+  const modes = document.querySelectorAll(".mode");
+  const gameMode = document.querySelector(".game-mode")
+  const game = document.querySelector(".game")
+  const buttons = document.querySelector(".buttons")
+  const player1 = createPlayer("Player 1", "X")
+  const player2 = createPlayer("Player 2", "O")
+  const cells = document.querySelectorAll(".cell")
+
+  buttons.addEventListener('click', (e) => {
+    let button = e.target.closest(".button-control")
+    if (!button) {
+      return
+    }
+    let attribute = button.dataset["attribute"];
+    handleButtonClick(attribute);
   })
-})
+
+  modes.forEach((mode) => {
+    mode.addEventListener("click", (e) => {
+      let selection = e.target.dataset["mode"];
+      gameMode.classList.toggle("d-none");
+      game.classList.toggle("d-none");
+    })
+  })
+
+  cells.forEach((cell) => {
+    cell.addEventListener("click", (e) => {
+      e.target.textContent = GameController.getCurrentPlayer().symbol;
+      let x = parseInt(e.target.dataset["row"]), y = parseInt(e.target.dataset["col"])
+      let res = GameController.playTurn(x, y)
+      console.log(res)
+    })
+  })
+
+
+  const start = () => {
+    GameController.start(player1, player2)
+  }
+
+  const handleButtonClick = (attribute) => {
+    switch (attribute) {
+      case "quit":
+        gameMode.classList.toggle("d-none")
+        game.classList.toggle("d-none")
+        break
+      case "reset":
+        //ToDo: Reset the entire board
+        GameController.start(player1, player2, true)
+        clearCells()
+      default:
+        console.log("Default case")
+    }
+  }
+
+  const clearCells = () => {
+    cells.forEach((cell) => {
+      cell.textContent = "";
+    })
+  }
+
+  return {start}
+
+}
+
+GameControllerUI().start();
 

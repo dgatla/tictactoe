@@ -62,7 +62,7 @@ span {
 }
 
 .d-none {
-  display: none;
+  display: none !important;
 }
 
 /* Board styling */
@@ -87,6 +87,13 @@ span {
   grid-template-rows: repeat(3, 150px);
   grid-template-columns: repeat(3, 150px);
   
+}
+
+.cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
 }
 
 .cell:nth-child(3n + 2) {

@@ -97,20 +97,23 @@ const GameControllerUI = () => {
       game.classList.toggle("d-none");
     })
   })
-
-  cells.forEach((cell) => {
-    cell.addEventListener("click", (e) => {
-      e.target.textContent = GameController.getCurrentPlayer().symbol;
-      let x = parseInt(e.target.dataset["row"]), y = parseInt(e.target.dataset["col"])
-      let res = GameController.playTurn(x, y)
-      console.log(res)
-    })
-  })
-
-
+  
   const start = () => {
     GameController.start(player1, player2)
   }
+
+  const handlePlayerInput = (e) => {
+    e.target.textContent = GameController.getCurrentPlayer().symbol;
+    let x = parseInt(e.target.dataset["row"]), y = parseInt(e.target.dataset["col"])
+    let res = GameController.playTurn(x, y)
+    if (res.win) {
+      
+    }
+  }
+
+  cells.forEach((cell) => {
+    cell.addEventListener("click", handlePlayerInput)
+  })
 
   const handleButtonClick = (attribute) => {
     switch (attribute) {
@@ -133,7 +136,8 @@ const GameControllerUI = () => {
     })
   }
 
-  return {start}
+  
+  return { start }
 
 }
 

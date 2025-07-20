@@ -15,7 +15,12 @@ body {
 }
 
 header {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px; 
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+header img {
+  max-width: 90vw;
+  height: auto;
 }
